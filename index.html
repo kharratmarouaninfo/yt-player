@@ -468,9 +468,9 @@
   }
 
   .video-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 0.75rem;
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 0.4rem !important;
   }
 
   .video-card {
@@ -604,7 +604,11 @@
     aside { height: auto; position: relative; top: 0; }
     .player-area { padding: 0.5rem; top: 56px; }
     .video-list-section { padding: 0.5rem; }
-    .video-grid { grid-template-columns: repeat(3, 1fr); gap: 0.4rem; }
+    .video-grid {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 0.4rem !important;
+  }
     .video-card-body { padding: 0.4rem; }
     .video-card-title { font-size: 0.6rem; }
     .video-card-channel { font-size: 0.5rem; }
