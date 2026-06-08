@@ -708,8 +708,21 @@
   let currentVideoIndex = -1;
   let shuffleMode = false;
 
+  // Hardcoded Client ID - no need to enter every time
+  const HARDCODED_CLIENT_ID = '298579078200-mbl4jftg2ksmc4477o599443nn98rpj1.apps.googleusercontent.com';
+  document.getElementById('client-id-input').value = HARDCODED_CLIENT_ID;
+
   // Show current origin
   document.getElementById('origin-display').textContent = location.origin;
+
+  // Auto-trigger sign in on page load
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      if (typeof google !== 'undefined') {
+        startAuth();
+      }
+    }, 1000);
+  });
 
   // ─── Auth ─────────────────────────────────────────────────
   function startAuth() {
