@@ -1,3 +1,4 @@
+
 {
   "name": "YT Player",
   "short_name": "YT Player",
@@ -6,7 +7,7 @@
   "scope": "/yt-player/",
   "display": "standalone",
   "background_color": "#f0f0f0",
-  "theme_color": "#ff3d00",
+  "theme_color": "#f0f0f0",
   "orientation": "portrait",
   "id": "/yt-player/",
   "icons": [
@@ -17,7 +18,7 @@
       "purpose": "any maskable"
     },
     {
-      "src": "icon-511.png",
+      "src": "icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
