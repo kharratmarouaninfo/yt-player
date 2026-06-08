@@ -3,20 +3,24 @@
   "short_name": "YT Player",
   "description": "Private YouTube Playlist Player",
   "start_url": "/yt-player/",
+  "scope": "/yt-player/",
   "display": "standalone",
   "background_color": "#0a0a0a",
   "theme_color": "#ff3d00",
   "orientation": "portrait",
+  "id": "/yt-player/",
   "icons": [
     {
-      "src": "https://raw.githubusercontent.com/kharratmarouaninfo/yt-player/main/icon.png",
+      "src": "icon-192.png",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     },
     {
-      "src": "https://raw.githubusercontent.com/kharratmarouaninfo/yt-player/main/icon.png",
+      "src": "icon-512.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     }
   ]
 }
