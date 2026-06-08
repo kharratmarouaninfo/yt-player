@@ -670,9 +670,7 @@
             <div class="play-icon">▶</div>
             <p>Select a playlist to begin</p>
           </div>
-          <iframe id="yt-player" style="display:none" allowfullscreen
-            allow="autoplay; encrypted-media; picture-in-picture"
-          ></iframe>
+          <div id="yt-player"></div>
         </div>
         <div class="now-playing">
           <div class="np-text">
@@ -909,6 +907,39 @@
     }).join('') + '</div>';
   }
 
+  // ─── YouTube IFrame API ───────────────────────────────────
+  let ytPlayer = null;
+  let ytReady = false;
+
+  // Load YouTube IFrame API
+  const ytScript = document.createElement('script');
+  ytScript.src = 'https://www.youtube.com/iframe_api';
+  document.head.appendChild(ytScript);
+
+  window.onYouTubeIframeAPIReady = function() {
+    ytReady = true;
+    ytPlayer = new YT.Player('yt-player', {
+      height: '100%',
+      width: '100%',
+      videoId: '',
+      playerVars: {
+        autoplay: 1,
+        rel: 0,
+        playsinline: 1,
+        enablejsapi: 1,
+        origin: location.origin
+      },
+      events: {
+        onStateChange: (e) => {
+          // Auto play next when video ends
+          if (e.data === YT.PlayerState.ENDED) {
+            nextVideo();
+          }
+        }
+      }
+    });
+  };
+
   // ─── Playback ─────────────────────────────────────────────
   function playVideo(idx) {
     if (!currentVideos[idx]) return;
@@ -924,11 +955,14 @@
     document.getElementById('now-playing-title').textContent = sn.title;
     document.getElementById('now-playing-title').style.color = '';
     document.getElementById('now-playing-channel').textContent = sn.videoOwnerChannelTitle || '';
-
-    const player = document.getElementById('yt-player');
-    player.style.display = 'block';
     document.getElementById('no-video-msg').style.display = 'none';
-    player.src = `https://www.youtube.com/embed/${vidId}?autoplay=1&enablejsapi=1&rel=0`;
+
+    if (ytReady && ytPlayer && ytPlayer.loadVideoById) {
+      ytPlayer.loadVideoById(vidId);
+    } else {
+      // Fallback: wait for API to be ready
+      setTimeout(() => playVideo(idx), 1000);
+    }
   }
 
   function prevVideo() {
