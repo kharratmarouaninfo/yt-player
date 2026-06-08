@@ -167,6 +167,7 @@
     display: none;
     min-height: 100vh;
     flex-direction: column;
+    overflow-x: hidden;
   }
 
   #app.visible { display: flex; }
@@ -218,7 +219,7 @@
     display: grid;
     grid-template-columns: 320px 1fr;
     flex: 1;
-    min-height: 0;
+    align-items: start;
   }
 
   /* Sidebar */
@@ -343,7 +344,7 @@
   main {
     display: flex;
     flex-direction: column;
-    overflow-y: auto;
+    overflow-y: visible;
   }
 
   /* Player */
@@ -351,7 +352,7 @@
     padding: 1.5rem 2rem;
     border-bottom: 1px solid var(--border);
     position: sticky;
-    top: 65px;
+    top: 0;
     z-index: 90;
     background: var(--bg);
   }
