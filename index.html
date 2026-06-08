@@ -2,6 +2,11 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<link rel="manifest" href="manifest.json">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="theme-color" content="#ff3d00">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>YT Private Player</title>
 <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Unbounded:wght@300;500;700&display=swap" rel="stylesheet">
@@ -971,6 +976,11 @@
     t.className = 'show ' + type;
     clearTimeout(t._timer);
     t._timer = setTimeout(() => { t.className = ''; }, 3500);
+  }
+</script>
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('sw.js').catch(() => {});
   }
 </script>
 </body>
