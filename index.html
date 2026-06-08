@@ -719,7 +719,16 @@
   window.addEventListener('load', () => {
     setTimeout(() => {
       if (typeof google !== 'undefined') {
-        startAuth();
+        const savedToken = localStorage.getItem('yt_access_token');
+        const savedExpiry = localStorage.getItem('yt_token_expiry');
+        if (savedToken && savedExpiry && Date.now() < parseInt(savedExpiry)) {
+          // Valid token found - skip login popup
+          accessToken = savedToken;
+          onSignedIn();
+        } else {
+          // No valid token - show login popup
+          startAuth();
+        }
       }
     }, 1000);
   });
@@ -736,6 +745,9 @@
       callback: (resp) => {
         if (resp.error) { showToast('Auth failed: ' + resp.error, 'error'); return; }
         accessToken = resp.access_token;
+        // Save token with 55 min expiry (tokens last 1hr)
+        localStorage.setItem('yt_access_token', accessToken);
+        localStorage.setItem('yt_token_expiry', Date.now() + 55 * 60 * 1000);
         onSignedIn();
       }
     });
@@ -758,6 +770,8 @@
 
   function signOut() {
     accessToken = null;
+    localStorage.removeItem('yt_access_token');
+    localStorage.removeItem('yt_token_expiry');
     playlists = []; currentPlaylist = null; currentVideos = [];
     document.getElementById('setup-screen').style.display = 'flex';
     document.getElementById('app').classList.remove('visible');
